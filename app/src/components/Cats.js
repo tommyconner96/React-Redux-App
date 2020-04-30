@@ -1,9 +1,14 @@
-import React from "react"
+import React, {useEffect} from "react"
 import { connect } from "react-redux"
 
 import { getCats } from "../actions"
 
 const Cats = ({ getCats, cat, isFetching, error }) => {
+  //useEffect to load a cat when the page first loads
+  useEffect(() => {
+    console.log('useEffect being called right here')
+    getCats()
+  }, [getCats])
   if (error !== '')
     return (
       <div>
@@ -17,9 +22,9 @@ const Cats = ({ getCats, cat, isFetching, error }) => {
   } else {
     return (
       <div>
-        <img src={cat} width='500px' />
-        <br />
         <button onClick={getCats}>Load New Cat</button>
+        <br /><br />
+        <img alt='random cat' src={cat} width='500px' />
       </div>
     )
   }
